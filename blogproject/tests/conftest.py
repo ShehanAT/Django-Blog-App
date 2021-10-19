@@ -11,7 +11,7 @@ class ConfTest(TestCase):
             username="admin",
             email="admin@admin.com",
             password="admin"
-        );
+        )
 
-        superuser.save();
+        superuser.save()
         assert User.objects.count() > 0
