@@ -2,6 +2,8 @@ import pytest
 from django.contrib.auth.models import User
 from django.test import TestCase 
 from blogapp.models import Category, Post 
+from conftest import ConfTest 
+
 
 class ModelTest(TestCase):
 
@@ -21,15 +23,7 @@ class ModelTest(TestCase):
         new_post = Post()
         new_post.title = "new_post"
 
-        posted_user = User(
-            username="test_user",
-            email="test_user@test_user.com",
-            password="test_user"
-        )
-        
-        posted_user.save()
-
-        new_post.author = posted_user
+        new_post.author = ConfTest.create_test_user(self)
 
         old_post_obj_count = Post.objects.filter().count() 
         new_post.save()

@@ -15,3 +15,13 @@ class ConfTest(TestCase):
 
         superuser.save()
         assert User.objects.count() > 0
+
+    @pytest.mark.django_db 
+    def create_test_user(self):
+        test_user = User.objects.create(
+            username="test_user",
+            email="test_user@test_user.com",
+            password="test_user"
+        )
+        test_user.save()
+        return test_user
