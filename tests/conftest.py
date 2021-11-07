@@ -22,15 +22,4 @@ class ConfTest(TestCase):
 
         superuser.save();
 
-
-        # register_url = reverse("blogapp:urls")
-        # register_data = {
-        #     "id": 1,
-        #     "username": "admin",
-        #     "email": "admin@gmail.com",
-        #     "password1": "Archimedes123",
-        #     "password2": "Archimedes123"
-        # }
-        # register_response = self.client.post(register_url, register_data)
-        # assert register_response.status_code == 302
         assert User.objects.count() > 0
