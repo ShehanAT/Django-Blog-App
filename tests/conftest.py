@@ -1,13 +1,6 @@
-import pytest 
-import factory
-from pytest_factoryboy import register
-from rest_framework.test import APIClient, APIRequestFactory 
-from django.contrib.auth import get_user_model
+import pytest
 from django.contrib.auth.models import User
-from django.contrib.auth.hashers import make_password
-from django import VERSION as DJANGO_VERSION
 from django.test import TestCase 
-from django.urls import reverse 
 
 
 class ConfTest(TestCase):
@@ -18,8 +11,17 @@ class ConfTest(TestCase):
             username="admin",
             email="admin@admin.com",
             password="admin"
-        );
+        )
 
-        superuser.save();
-
+        superuser.save()
         assert User.objects.count() > 0
+
+    @pytest.mark.django_db 
+    def create_test_user(self):
+        test_user = User.objects.create(
+            username="test_user",
+            email="test_user@test_user.com",
+            password="test_user"
+        )
+        test_user.save()
+        return test_user
