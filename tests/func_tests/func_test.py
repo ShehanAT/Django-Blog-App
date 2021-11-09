@@ -5,7 +5,7 @@ import pytest
 
 class FunctionalTestCase(TestCase):
     LOGIN_URL = 'http://localhost:8000/login/'    
-
+    ADMIN_URL = 'http://localhost:8000/admin/login/?next=/admin/'
     @pytest.fixture(autouse=True)
     def setup(self):
         self.browser = webdriver.Firefox()
@@ -50,6 +50,16 @@ class FunctionalTestCase(TestCase):
         self.browser.find_element_by_xpath("//a[contains(@href, '/login/')]").click()
         login_url = self.browser.current_url 
         if login_url == self.LOGIN_URL:
+            assert True 
+        else:
+            pytest.fail()
+
+    @pytest.mark.django_db
+    def test_admin_link_works(self):
+        self.browser.get("http://localhost:8000")
+        self.browser.find_element_by_xpath("//a[contains(@href, '/admin/')]").click()
+        admin_url = self.browser.current_url 
+        if admin_url == self.ADMIN_URL:
             assert True 
         else:
             pytest.fail()
